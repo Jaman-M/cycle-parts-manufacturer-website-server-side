@@ -16,6 +16,7 @@ async function run(){
     try{
         await client.connect();
         const productCollection = client.db("cycle-parts").collection("parts")
+        const userCollection = client.db("cycle-parts").collection("users")
         // console.log('database connected');
         app.get('/parts', async (req, res ) => {
             const query = {} 
@@ -23,6 +24,16 @@ async function run(){
             const product = await cursor.toArray()
             res.send(product)
         })
+
+        //try
+        app.get('/users', async (req, res) =>{
+          const query ={}
+          const cursor = userCollection.find(query)
+          const user = await cursor.toArray()
+          res.send(user)
+
+        })
+        //try
     }
     finally{
 
@@ -36,6 +47,7 @@ app.get('/', (req, res) => {
 });
 
 //
+
 
 
 app.listen(port, () => {

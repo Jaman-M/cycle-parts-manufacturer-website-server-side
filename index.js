@@ -17,6 +17,9 @@ async function run(){
         await client.connect();
         const productCollection = client.db("cycle-parts").collection("parts")
         const userCollection = client.db("cycle-parts").collection("users")
+        const reviewCollection = client.db("cycle-parts").collection("review")
+        const orderCollection = client.db("cycle-parts").collection("order")
+
         // console.log('database connected');
         app.get('/parts', async (req, res ) => {
             const query = {} 
@@ -47,6 +50,17 @@ async function run(){
           res.send(users);
         });
 
+        // review
+        app.post("/review", async (req, res) => {
+          const order = req.body;
+          const result = await reviewCollection.insertOne(order);
+          res.send(result);
+        });
+    
+        app.get("/review", async (req, res) => {
+          const review = await reviewCollection.find().toArray();
+          res.send(review);
+        });
         //try
     }
     finally{

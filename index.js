@@ -63,6 +63,7 @@ async function run() {
       }
       const updatedBooking = await orderCollection.updateOne(filter, updatedDoc);
       res.send(updatedBooking);
+      })
 
       //patch
 

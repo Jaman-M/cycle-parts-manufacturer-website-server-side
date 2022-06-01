@@ -50,6 +50,22 @@ async function run() {
       res.send(users);
     });
 
+    // patch
+    app.patch('/orders/:id',async (req,res)=>{
+      const id = req.params.id;
+      const payment = req.body;
+      const filter = { _id: ObjectId(id) };
+      const updatedDoc = {
+          $set: {
+              paid: true,
+              transactionId: payment.transactionId
+          }
+      }
+      const updatedBooking = await orderCollection.updateOne(filter, updatedDoc);
+      res.send(updatedBooking);
+
+      //patch
+
     // review
     app.post("/review", async (req, res) => {
       const order = req.body;

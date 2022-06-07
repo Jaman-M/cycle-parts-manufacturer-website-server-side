@@ -25,7 +25,7 @@ async function run() {
       const query = {}
       const cursor = productCollection.find(query)
       const product = await cursor.sort({ _id: -1 }).limit(6).toArray()
-      res.send(product)
+      res.send(product) 
     })
 
     //try  ---comment
